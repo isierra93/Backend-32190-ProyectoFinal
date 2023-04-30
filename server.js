@@ -6,7 +6,7 @@ import MongoStore from "connect-mongo";
 import session from "express-session";
 import compression from "compression";
 import { MONGO_OPTIONS } from "./src/config/mongoOptions.js";
-import { DOT_ENV } from "./src/Dot_Env_Input.js";
+import { DOT_ENV } from "./src/scripts/YArgs.js";
 import Controller from "./src/Controller/controller.js";
 import * as Logger from "./src/scripts/Logger.js";
 import passport from "./src/Router/Passport/passport.js"
