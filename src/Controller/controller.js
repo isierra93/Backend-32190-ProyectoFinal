@@ -3,6 +3,7 @@ import Service from "../Service/Service.js";
 import * as Faker from "../scripts/Faker.js";
 import * as Mailer from "../scripts/Nodemailer.js";
 import bCrypt from "bcrypt";
+import notificacionWP from "../scripts/TwilioWpp.js";
 
 //SIGIN
 
@@ -185,16 +186,11 @@ async function getPedidoCarrito(req, res) {
     await Mailer.ecommerceGmail.sendMail(mailOptions);
 
     // Enviar wpp al admin pedido de compra
+    await notificacionWP(user);
 
     Logger.logConsola.info(
       "Administrador: " +
         `Nuevo pedido de compra de ${user.nombre} ${user.apellido}, correo : ${user.email}`
-    );
-
-    // enviar wpp al usuario pedido de compra
-    Logger.logConsola.info(
-      "Comprador: " +
-        "Su pedido de compra ha sido recibido y esta en proceso. Le agradecemos por su confianza y paciencia"
     );
 
     await Service.deleteCartById(carritoId);

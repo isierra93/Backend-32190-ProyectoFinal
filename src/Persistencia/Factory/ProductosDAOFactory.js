@@ -1,5 +1,5 @@
 import ProductosDAOdb from "../contenedores/mongohijos/ProductosDAOdb";
-import { DOT_ENV } from "../../Dot_Env_Input";
+import {DOT_ENV} from "../../scripts/YArgs.js";
 
 let DAO;
 const inputDAO = DOT_ENV.DAO;
