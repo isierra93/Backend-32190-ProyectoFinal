@@ -1,4 +1,6 @@
-/* import { createTransport } from "nodemailer";
+import { createTransport } from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
 
 const user = process.env.TEST_EMAIL;
 const pass = process.env.TEST_PASSWORD;
@@ -9,13 +11,14 @@ const authentication = {
   pass
 };
 
-const ecommerceGmail = createTransport({
+let ecommerceGmail = createTransport({
   service : "gmail",
-  port : 586,
+  port : 587,
+  secure: false,
   auth : authentication
 });
 
 export {
   ecommerceGmail,
   admEmail
-}; */
+};

@@ -50,6 +50,10 @@ async function deleteProdFromCart(cartId, prodId){
     return await Carros.eliminarProducto(cartId, prodId);
 };
 
+async function deleteCartById(id){
+    return await Carros.deleteById(id);
+};
+
 async function getUserByEmail(email){
     return await Users.getByEmail(email);
 };
@@ -69,6 +73,7 @@ export default {
     getCartByOwner,
     getCartById,
     deleteProdFromCart,
+    deleteCartById,
     getUserByEmail,
     saveUser
 };

@@ -1,7 +1,7 @@
 import * as Logger from "../scripts/Logger.js";
 import Service from "../Service/Service.js";
 import * as Faker from "../scripts/Faker.js";
-//import {admEmail , ecommerceGmail} from "../Nodemailer.js";
+import * as Mailer from "../scripts/Nodemailer.js";
 import bCrypt from "bcrypt";
 
 //SIGIN
@@ -169,23 +169,22 @@ async function getDeleteCarritoProd(req, res) {
 
 async function getPedidoCarrito(req, res) {
   try {
-    const { referer } = req.headers;
     const { email, productosId } = req.params;
     const productos = productosId.split(",");
     const user = await Service.getUserByEmail(email);
-    // enviar email al admin pedido de compra
-    /*     Logger.logConsola.info("\n Comprador user: " + user + "\n Carrito: " + productos) */
+    let carritoId = await Service.getCartByOwner(email);
+    // Enviar email al admin pedido de compra
+    Logger.logConsola.info("\n Comprador user: " + user + "\n Carrito ID: " + carritoId + "\n Productos: " + productos);
 
-    /* const mailOptions = {
+    const mailOptions = {
       from: "Coderhouse EcommerceApp",
-      to: admEmail,
-      subject: `Nuevo pedido de compra de ${user.nombre}, correo : ${user.email}`,
-      html: `${productos}
-      `,
+      to: `${user.email}`,
+      subject: `Nuevo pedido de compra de ${user.nombre}, Correo : ${user.email}`,
+      html: `Productos ID: ${productos}`,
     };
-    ecommerceGmail.sendMail(mailOptions); */
+    await Mailer.ecommerceGmail.sendMail(mailOptions);
 
-    // enviar wpp al admin pedido de compra
+    // Enviar wpp al admin pedido de compra
 
     Logger.logConsola.info(
       "Administrador: " +
@@ -197,11 +196,14 @@ async function getPedidoCarrito(req, res) {
       "Comprador: " +
         "Su pedido de compra ha sido recibido y esta en proceso. Le agradecemos por su confianza y paciencia"
     );
-    return res.redirect(referer);
+
+    await Service.deleteCartById(carritoId);
+
+    return res.redirect("/");
   } catch (error) {
     Logger.logError.error(error);
-  }
-}
+  };
+};
 
 //Perfil
 

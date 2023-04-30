@@ -1,7 +1,7 @@
 import MongoContainer from "../MongoContainer.js";
 import * as model from "../../models/usuariosModel.js";
 import * as Logger from "../../../scripts/Logger.js";
-import * as Mailer from "../../../Nodemailer.js";
+import * as Mailer from "../../../scripts/Nodemailer.js";
 
 let instance;
 
@@ -61,9 +61,9 @@ export default class UsariosDAO extends MongoContainer {
         from: "App Node",
         to: Mailer.admEmail,
         subject: "Nuevo registro",
-        html: `${nuevoUser}`,
+        html: `Nuevo usuario registrado: ${nuevoUser}`,
       };
-      Mailer.ecommerceGmail.sendMail(mailOptions);
+      await Mailer.ecommerceGmail.sendMail(mailOptions);
       await this.disconnect();
       return nuevoUser;
     } catch (error) {
