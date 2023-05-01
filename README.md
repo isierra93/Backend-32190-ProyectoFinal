@@ -1,6 +1,19 @@
 # Proyecto backend - Coderhouse
 
-### [Proyecto desplegado](https://backend-32190-proyectofinal-production.up.railway.app/)
+Proyecto final para la comisión 32190 - Dictada por @marcosvillanueva9.
+API REST desarrollada en JS para soportar las operaciones básicas de un ecommerce.
+
+## Tecnologias utilizadas
+
+MongoDB para la persistencia de la base de datos.
+Twilio y Nodemailer para las notificaciones.
+YArgs para los argumentos.
+Logger para debug.
+Faker para los mocks.
+Passport como middleware de autenticación.
+
+
+### [Proyecto desplegado en Railways🚆](https://backend-32190-proyectofinal-production.up.railway.app/)
 
 # ENDPOINTS
 
