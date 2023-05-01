@@ -75,5 +75,5 @@ export default {
     deleteProdFromCart,
     deleteCartById,
     getUserByEmail,
-    saveUser
+    saveUser,
 };

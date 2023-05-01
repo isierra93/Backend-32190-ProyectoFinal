@@ -4,6 +4,7 @@ import * as Faker from "../scripts/Faker.js";
 import * as Mailer from "../scripts/Nodemailer.js";
 import bCrypt from "bcrypt";
 import notificacionWP from "../scripts/TwilioWpp.js";
+import infoService from "../Service/info/infoService.js";
 
 //SIGIN
 
@@ -51,8 +52,6 @@ function getIndex(req, res) {
 
 async function getProductos(req, res) {
   try {
-    const tagsFiltrables = Faker.tagsFiltrables.join(" - ");
-    const { filtros } = req.params;
     let listExists = false;
     let productos = await Service.getAllProducts();
 
@@ -62,14 +61,8 @@ async function getProductos(req, res) {
 
     listExists = true;
 
-    if (filtros) {
-      const tags = filtros.split("-");
-      productos = await Service.getProdByTags(tags);
-    };
-
     res.render("productos", {
       user: req.user,
-      tagsFiltrables,
       productos: productos,
       listExists,
     });
@@ -80,18 +73,16 @@ async function getProductos(req, res) {
 
 async function postProductos(req, res) {
   try {
-    const { cant } = req.query;
+    const { titulo, precio, thumbnail, tags } = req.body;
 
-    if (cant <= 0) {
-      return res.redirect("/productos");
-    };
-    if (!cant) {
-      const prodMocks = Faker.getProdMocks();
-    } else {
-      const prodMocks = Faker.getProdMocks(cant);
+    const newProd = {
+      titulo:titulo,
+      precio:precio,
+      thumbnail:thumbnail,
+      tags: tags
     };
 
-    await Service.saveManyProducts(prodMocks);
+    await Service.saveProduct(newProd);
 
     return res.redirect("/productos");
   } catch (error) {
@@ -238,8 +229,18 @@ function createHash(password) {
     password,
     bCrypt.genSaltSync(10),
     null
-  )
+  );
+};
+
+async function getAny(req, res) {
+  Logger.logConsola.info('Ruta no implementada.')
+  res.redirect("/")
 }
+
+async function getInfo(req, res){
+  const info = await infoService ();
+  res.render("info", {...info});
+};
 
 export default{
   getSignin,
@@ -258,5 +259,7 @@ export default{
   checkAuthentication,
   websocket,
   isValidPassword,
-  createHash
+  createHash,
+  getAny,
+  getInfo
 };

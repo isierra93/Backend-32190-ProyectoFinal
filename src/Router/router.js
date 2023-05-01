@@ -26,11 +26,15 @@ APIRouter.get("/failSignin", Controller.getFailSignin);
 APIRouter.get("/perfil", Controller.getPerfil);
 //Products
 APIRouter.get("/productos/:filtros?", Controller.checkAuthentication, Controller.getProductos);
-APIRouter.post("/productos", Controller.postProductos, Controller.postProductos);
+APIRouter.post("/productos", Controller.postProductos);
 //Cart
 APIRouter.get("/carrito", Controller.checkAuthentication, Controller.getCarrito);
 APIRouter.get("/addCarritoProd/:email/:prodId", Controller.checkAuthentication, Controller.getAddCarritoProd);
 APIRouter.get("/deleteCarritoProd/:email/:prodId", Controller.checkAuthentication, Controller.getDeleteCarritoProd);
 APIRouter.get("/pedidoCarrito/:email/:productosId", Controller.checkAuthentication, Controller.getPedidoCarrito);
+//Info
+APIRouter.get("/info", Controller.checkAuthentication, Controller.getInfo);
+//No implementadas
+APIRouter.get("*", Controller.getAny);
 
 export default APIRouter;
