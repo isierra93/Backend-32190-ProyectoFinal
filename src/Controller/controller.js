@@ -73,16 +73,13 @@ async function getProductos(req, res) {
 
 async function postProductos(req, res) {
   try {
-    const { titulo, precio, thumbnail, tags } = req.body;
+    if(Array.isArray(req.body)){
+      await Service.saveManyProducts(req.body);
 
-    const newProd = {
-      titulo:titulo,
-      precio:precio,
-      thumbnail:thumbnail,
-      tags: tags
-    };
-
-    await Service.saveProduct(newProd);
+      return res.redirect("/productos");
+    }
+  
+    await Service.saveProduct(req.body);
 
     return res.redirect("/productos");
   } catch (error) {

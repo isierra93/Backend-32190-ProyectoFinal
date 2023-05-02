@@ -25,9 +25,12 @@ async function saveManyProducts(prods){
     return await Products.saveMany(prods);
 };
 
+async function saveProduct(prod){
+    return await Products.save(prod)
+}
+
 async function deleteAllProds(){
-    await Products.deleteAll();
-    return;
+    return await Products.deleteAll();
 };
 
 async function createCart(owner){
@@ -67,6 +70,7 @@ export default {
     getProdById,
     getProdByTags,
     saveManyProducts,
+    saveProduct,
     deleteAllProds,
     createCart,
     addProdToCart,

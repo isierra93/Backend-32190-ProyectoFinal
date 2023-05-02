@@ -26,7 +26,7 @@ APIRouter.get("/failSignin", Controller.getFailSignin);
 APIRouter.get("/perfil", Controller.getPerfil);
 //Products
 APIRouter.get("/productos/:filtros?", Controller.checkAuthentication, Controller.getProductos);
-APIRouter.post("/productos", Controller.postProductos);
+APIRouter.post("/productos", Controller.checkAuthentication , Controller.postProductos);
 //Cart
 APIRouter.get("/carrito", Controller.checkAuthentication, Controller.getCarrito);
 APIRouter.get("/addCarritoProd/:email/:prodId", Controller.checkAuthentication, Controller.getAddCarritoProd);
