@@ -3,7 +3,7 @@ import Service from "../Service/Service.js";
 import * as Faker from "../scripts/Faker.js";
 import * as Mailer from "../scripts/Nodemailer.js";
 import bCrypt from "bcrypt";
-import notificacionWP from "../scripts/TwilioWpp.js";
+//import notificacionWP from "../scripts/TwilioWpp.js";
 import infoService from "../Service/info/infoService.js";
 
 //SIGIN
@@ -174,7 +174,7 @@ async function getPedidoCarrito(req, res) {
     await Mailer.ecommerceGmail.sendMail(mailOptions);
 
     // Enviar wpp al admin pedido de compra
-    await notificacionWP(user);
+    //await notificacionWP(user);
 
     Logger.logConsola.info(
       "Administrador: " +
@@ -230,7 +230,6 @@ function createHash(password) {
 };
 
 async function getAny(req, res) {
-  Logger.logConsola.info('Ruta no implementada.')
   res.redirect("/")
 }
 

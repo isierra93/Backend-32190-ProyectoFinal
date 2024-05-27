@@ -6,9 +6,8 @@ import * as Logger from "../../scripts/Logger.js";
 const Login = new LocalStrategy(
     async (username, password, next) => {
     try {
-        Logger.logConsola.info('ingresandoo')
         const user = await Service.getUserByEmail(username);
-  
+        Logger.logConsola.info('Verificando usuario y contraseña');
         if(!user){
             return next(null, false);
         };
@@ -28,7 +27,7 @@ const Signin =  new LocalStrategy({
   passReqToCallback: true},
         async (req, username, password, next) => {
           try {
-            Logger.logConsola.info('Iniciando signin')
+          Logger.logConsola.info('Registrando usuario');
           const user = await Service.getUserByEmail(req.body.email);
           
           if(user){
@@ -58,17 +57,13 @@ const Signin =  new LocalStrategy({
 
 
 const Serializar = (username, next) => {
-  Logger.logConsola.info('Serializar')
     next(null, username.email);
 };
   
 const Deserializar = async (email, next) => {
     try {
-      Logger.logConsola.info('Deserializar')
       const acc = await Service.getUserByEmail(email);
-  
       next(null, acc);
-
     } catch (error) {
       Logger.logError.error(error);
     };
